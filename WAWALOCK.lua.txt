@@ -305,6 +305,11 @@ task.spawn(function()
 end)
 
 local dragging = false
+-- =====================
+-- DRAGGING
+-- =====================
+
+local dragging = false
 local dragInput = nil
 local dragStart = nil
 local startPos = nil
@@ -319,7 +324,7 @@ local function updateDrag(input)
     dragFrame.Position = UDim2.new(0, absX, 0, absY)
 end
 
-dragFrame.InputBegan:Connect(function(input)
+button.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1
         or input.UserInputType == Enum.UserInputType.Touch then
         dragging = true
@@ -330,14 +335,14 @@ dragFrame.InputBegan:Connect(function(input)
     end
 end)
 
-dragFrame.InputChanged:Connect(function(input)
+button.InputChanged:Connect(function(input)
     if input == dragInput then
         if (input.Position - dragStart).Magnitude > 6 then dragMoved = true end
         if dragMoved then updateDrag(input) end
     end
 end)
 
-dragFrame.InputEnded:Connect(function(input)
+button.InputEnded:Connect(function(input)
     if input == dragInput then
         dragging = false
         dragInput = nil
